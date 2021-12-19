@@ -1,44 +1,69 @@
-print("Кол-во сотрудников:", )
-kolvo = int(input())
+print('''Сначала вы должны ввести натуральное число N (1 ≤ N ≤ 1000) — количество сотрудников компании (совпадающее с количеством вызванных машин такси).
+Далее вводите N чисел, задающих расстояния в километрах от работы до домов сотрудников компании 
+(первое число — для первого сотрудника, второе — для второго и т.д.). 
+Все расстояния — положительные целые числа, не превышающие 1000.
+Далее вводите еще N чисел — тарифы за проезд одного километра в такси (первое число — в первой машине такси, второе — во второй и т.д.). 
+Тарифы выражаются положительными целыми числами, не превышающими 10000.
+Выводится N чисел. 
+Первое число — номер такси, в которое должен сесть первый сотрудник. 
+Второе число — номер такси, в которое должен сесть второй и т.д., чтобы суммарные затраты на такси были минимальны. 
+Если вариантов рассадки сотрудников, при которых затраты минимальны, несколько, выведите любой из них.''')
+try: # Проверка типов данных
+  print("Кол-во сотрудников:", ) #Ввод количества сотрудников
+  kolvo = int(input())
 
-print("Расстояния: ")
-a = input()
-s = a.split()
-i=0
-dist = []
-while i<len(s):
-    j = int(s[i])
-    dist.append(j)
-    i+=1
+  print("Расстояния: ") #Ввод расстояний
 
-print("Тарифы: ")
-a = input()
-s = a.split()
-tarif = []
-i=0
-while i<len(s):
-    j = int(s[i])
-    tarif.append(j)
-    i+=1
+  a = input()
+  s = a.split()
+  i=0
+  dist = []
+except ValueError:
+    print('Введены некорректные данные')
+else:
+  try: # Проверка типов данных
+    while i<len(s):
+      j = int(s[i])
+      dist.append(j)
+      i+=1
+  except ValueError:
+    print('Введены некорректные данные')
+  else: 
+    print("Тарифы: ") #Ввод тарифов
+  a = input()
+  s = a.split()
+  tarif = []
+  i=0
+  try: # Проверка типов данных
+    while i<len(s):
+        j = int(s[i])
+        tarif.append(j)
+        i+=1
 
-otvet=[]
-i=0
-while i<kolvo:
-    otvet.append(0)
-    i+=1
-i=0
-while i<kolvo:
-    maxd = max(dist)
-    num_human = dist.index(maxd)
-    mint = min(tarif)
-    num_taxi = tarif.index(mint)
-    otvet[num_human] = num_taxi + 1
-    dist[num_human] = -1
-    tarif[num_taxi] = 10001
-    i+=1
-
-print("Распределение по машинам: ")
-i=0
-while i<len(otvet):
-    print('Сотрудник номер', i+1, 'должен сесть в такси номер', otvet[i])
-    i+=1
+    otvet=[]
+    i=0
+    while i<kolvo:
+       otvet.append(0)
+       i+=1
+    i=0
+  except ValueError:
+      print('Введены некорректные данные')
+  else:
+    try: # Проверка типов данных
+       while i<kolvo:
+          maxd = max(dist)
+          num_human = dist.index(maxd)
+          mint = min(tarif)
+          num_taxi = tarif.index(mint)
+          otvet[num_human] = num_taxi + 1
+          dist[num_human] = -1
+          tarif[num_taxi] = 10001
+          i+=1
+    except ValueError:
+        print('Введены некорректные данные')
+    else: 
+      print("Распределение по машинам: ")
+      i=0
+      while i<len(otvet): # Вывод значений
+          print('Сотрудник номер', i+1, 'должен сесть в такси номер', otvet[i])
+          i+=1
